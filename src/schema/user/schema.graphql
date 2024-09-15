@@ -1,0 +1,25 @@
+extend type Query {
+  me: User!
+  user(id: ID!): User
+}
+
+extend type Mutation {
+  signIn(username: String!, password: String!): String!
+  signUp(
+    username: String!
+    password: String!
+    dateOfBirth: DateTime!
+    role: Role!
+  ): String!
+}
+
+type User {
+  id: ID!
+  username: String!
+  dateOfBirth: DateTime!
+  role: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  isAdmin: Boolean!
+  shop: Shop
+}

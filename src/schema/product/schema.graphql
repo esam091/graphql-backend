@@ -1,0 +1,82 @@
+extend type Query {
+  product(id: ID!): Product
+
+  searchProducts(
+    name: String
+    minPrice: Int
+    maxPrice: Int
+    inStockOnly: Boolean
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): ProductConnection
+}
+
+extend type Mutation {
+  createProduct(
+    name: String!
+    description: String!
+    price: Int!
+    stock: Int!
+  ): Product!
+
+  addStock(productId: ID!, stock: Int!): Product!
+  deleteProduct(productId: ID!): Product!
+  setProductActive(productId: ID!, isActive: Boolean!): Product!
+}
+
+"""
+The product that is sold in the store
+"""
+type Product {
+  """
+  The unique identifier of the product
+  """
+  id: ID!
+
+  """
+  The name of the product, must be between 1 and 50 characters
+  """
+  name: String!
+
+  """
+  The description of the product, must be between 1 and 1000 characters
+  """
+  description: String!
+
+  """
+  The price of the product, must be between 1 and 1000
+  """
+  price: Int!
+
+  """
+  The amount of stock available for this product, 100 maximum
+  """
+  stock: Int!
+
+  """
+  Active products can only be seen by the owner of the store
+  """
+  isActive: Boolean!
+
+  """
+  The date and time when the product was created
+  """
+  createdAt: DateTime!
+
+  """
+  The shop that sells this product
+  """
+  shop: Shop!
+}
+
+type ProductConnection {
+  edges: [ProductEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ProductEdge {
+  cursor: String!
+  node: Product!
+}

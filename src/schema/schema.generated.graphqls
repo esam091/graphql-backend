@@ -1,0 +1,89 @@
+scalar DateTime
+
+type Mutation {
+  addStock(productId: ID!, stock: Int!): Product!
+  createProduct(description: String!, name: String!, price: Int!, stock: Int!): Product!
+  createShop(address: String!, name: String!): Shop!
+  deleteProduct(productId: ID!): Product!
+  setProductActive(isActive: Boolean!, productId: ID!): Product!
+  signIn(password: String!, username: String!): String!
+  signUp(dateOfBirth: DateTime!, password: String!, role: Role!, username: String!): String!
+  updateAddress(address: String!): Shop!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+"""The product that is sold in the store"""
+type Product {
+  """The date and time when the product was created"""
+  createdAt: DateTime!
+
+  """The description of the product, must be between 1 and 1000 characters """
+  description: String!
+
+  """The unique identifier of the product"""
+  id: ID!
+
+  """Active products can only be seen by the owner of the store"""
+  isActive: Boolean!
+
+  """The name of the product, must be between 1 and 50 characters """
+  name: String!
+
+  """The price of the product, must be between 1 and 1000"""
+  price: Int!
+
+  """The shop that sells this product"""
+  shop: Shop!
+
+  """The amount of stock available for this product, 100 maximum"""
+  stock: Int!
+}
+
+type ProductConnection {
+  edges: [ProductEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ProductEdge {
+  cursor: String!
+  node: Product!
+}
+
+type Query {
+  me: User!
+  product(id: ID!): Product
+  searchProducts(after: String, before: String, first: Int, inStockOnly: Boolean, last: Int, maxPrice: Int, minPrice: Int, name: String): ProductConnection
+  shop(id: ID!): Shop
+  user(id: ID!): User
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+type Shop {
+  address: String!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  owner: User!
+  products(after: String, before: String, first: Int, last: Int, maxPrice: Int, minPrice: Int, name: String): ProductConnection
+}
+
+type User {
+  createdAt: DateTime!
+  dateOfBirth: DateTime!
+  id: ID!
+  isAdmin: Boolean!
+  role: String!
+  shop: Shop
+  updatedAt: DateTime!
+  username: String!
+}

@@ -1,0 +1,26 @@
+extend type Query {
+  shop(id: ID!): Shop
+}
+
+extend type Mutation {
+  createShop(name: String!, address: String!): Shop!
+  updateAddress(address: String!): Shop!
+}
+
+type Shop {
+  id: ID!
+  name: String!
+  address: String! # can be only viewed by admins or self
+  createdAt: DateTime!
+  owner: User!
+
+  products(
+    name: String
+    minPrice: Int
+    maxPrice: Int
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): ProductConnection
+}

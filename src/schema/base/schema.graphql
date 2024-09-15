@@ -1,0 +1,16 @@
+scalar DateTime
+
+type Query
+type Mutation
+
+enum Role {
+  ADMIN
+  USER
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
