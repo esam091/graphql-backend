@@ -15,7 +15,7 @@ const server = new ApolloServer<Context>({
 const handler = startServerAndCreateNextHandler(server, {
   context: async (req) => {
 
-    // @ts-ignore types not matching
+    // @ts-expect-error types not matching
     const token = req.headers.get('authorization') || ''
     try {
       const payload = jwt.verify(

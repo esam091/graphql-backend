@@ -3,7 +3,7 @@ import type { ProductResolvers } from './../../types.generated'
 import { eq } from 'drizzle-orm'
 import { db } from '@/db'
 export const Product: ProductResolvers = {
-  shop: async (_parent, _arg, _ctx) => {
+  shop: async (_parent, _, __) => {
     const [shop] = await db
       .select()
       .from(shops)
