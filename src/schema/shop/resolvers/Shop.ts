@@ -15,7 +15,7 @@ export const Shop: ShopResolvers = {
     })
   },
 
-  owner: async (parent, _arg, _ctx) => {
+  owner: async (parent) => {
     const [user] = await db
       .select()
       .from(users)

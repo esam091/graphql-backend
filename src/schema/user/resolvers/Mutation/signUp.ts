@@ -8,7 +8,6 @@ import jwt from 'jsonwebtoken'
 export const signUp: NonNullable<MutationResolvers['signUp']> = async (
   _parent,
   fields,
-  _ctx
 ) => {
   const newUser = await db
     .insert(users)

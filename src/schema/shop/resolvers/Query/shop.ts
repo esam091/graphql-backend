@@ -6,7 +6,6 @@ import { eq } from 'drizzle-orm'
 export const shop: NonNullable<QueryResolvers['shop']> = async (
   _,
   { id },
-  __
 ) => {
   const [dbShop] = await db
     .select()

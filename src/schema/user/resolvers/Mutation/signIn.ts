@@ -9,7 +9,6 @@ import jwt from 'jsonwebtoken'
 export const signIn: NonNullable<MutationResolvers['signIn']> = async (
   _parent,
   fields,
-  { currentUser }
 ) => {
   const [dbUser] = await db
     .select()

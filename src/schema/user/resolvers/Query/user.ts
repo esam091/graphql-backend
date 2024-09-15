@@ -6,7 +6,6 @@ import { eq } from 'drizzle-orm'
 export const user: NonNullable<QueryResolvers['user']> = async (
   _parent,
   { id },
-  { currentUser }
 ) => {
   const [dbUser] = await db
     .select()
