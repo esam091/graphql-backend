@@ -5,10 +5,14 @@ import { typeDefs } from '@/schema/typeDefs.generated'
 import { resolvers } from '@/schema/resolvers.generated'
 import { Context } from '@/context'
 import { startServerAndCreateNextHandler } from '@as-integrations/next'
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 
 const server = new ApolloServer<Context>({
   typeDefs,
   resolvers,
+  plugins: [ApolloServerPluginLandingPageLocalDefault({
+    footer: false
+  })],
   // includeStacktraceInErrorResponses: false,
 })
 
