@@ -11,7 +11,7 @@ const server = new ApolloServer<Context>({
   typeDefs,
   resolvers,
   plugins: [ApolloServerPluginLandingPageLocalDefault({
-    footer: false
+    footer: false,
   })],
   introspection: true
   // includeStacktraceInErrorResponses: false,
