@@ -13,6 +13,7 @@ const server = new ApolloServer<Context>({
   plugins: [ApolloServerPluginLandingPageLocalDefault({
     footer: false
   })],
+  introspection: true
   // includeStacktraceInErrorResponses: false,
 })
 
