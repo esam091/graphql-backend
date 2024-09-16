@@ -9,6 +9,12 @@ export const addStock: NonNullable<MutationResolvers['addStock']> = async (
   { productId, stock },
   { currentUser }
 ) => {
+  if (stock <= 0) {
+    throw new GraphQLError('Stock must be a positive number', {
+      extensions: { code: 'BAD_USER_INPUT' },
+    })
+  }
+  
   if (!currentUser) {
     throw new GraphQLError('Authentication required', {
       extensions: { code: 'UNAUTHENTICATED' },

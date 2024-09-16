@@ -1,10 +1,24 @@
 extend type Query {
+  """
+  Get the current user.
+  """
   me: User!
+
+  """
+  Get a user by id.
+  """
   user(id: ID!): User
 }
 
 extend type Mutation {
+  """
+  Sign in a user. Returns a JWT token if successful.
+  """
   signIn(username: String!, password: String!): String!
+
+  """
+  Sign up a user. Returns a JWT token if successful.
+  """
   signUp(
     username: String!
     password: String!
@@ -13,13 +27,44 @@ extend type Mutation {
   ): String!
 }
 
+"""
+The users of the application. Each user can have a shop.
+"""
 type User {
+  """
+  The id of the user.
+  """
   id: ID!
+
+  """
+  The username of the user. Must be unique.
+  """
   username: String!
+
+  """
+  The date of birth of the user. Can only be viewed by admins or the user itself.
+  """
   dateOfBirth: DateTime!
+
+  """
+  The role of the user. Can only be viewed by admins.
+  """
   role: String!
+
+  """
+  The date of creation of the user.
+  """
   createdAt: DateTime!
+  
+  """
+  The date of last update of the user.
+  """
   updatedAt: DateTime!
+
+  """
+  Whether the user is an admin. An admin can view more sensitive information such as the shop address and the user's date of birth.
+  """
   isAdmin: Boolean!
+
   shop: Shop
 }

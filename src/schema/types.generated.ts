@@ -23,13 +23,21 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Add stock to a product. The total stock (existing + added) cannot exceed 100. */
   addStock: Product;
+  /** Create a new product. Price and stock must be positive numbers. */
   createProduct: Product;
+  /** Create a new shop. */
   createShop: Shop;
+  /** Delete a product. */
   deleteProduct: Product;
+  /** Set the active status of a product. Active products can only be seen by the owner of the store or admins. */
   setProductActive: Product;
+  /** Sign in a user. Returns a JWT token if successful. */
   signIn: Scalars['String']['output'];
+  /** Sign up a user. Returns a JWT token if successful. */
   signUp: Scalars['String']['output'];
+  /** Update the address of the shop. Can only be done by the owner of the shop. */
   updateAddress: Shop;
 };
 
@@ -96,13 +104,13 @@ export type Product = {
   __typename?: 'Product';
   /** The date and time when the product was created */
   createdAt: Scalars['DateTime']['output'];
-  /** The description of the product, must be between 1 and 1000 characters  */
+  /** The description of the product, must be between 1 and 1000 characters */
   description: Scalars['String']['output'];
   /** The unique identifier of the product */
   id: Scalars['ID']['output'];
   /** Active products can only be seen by the owner of the store */
   isActive: Scalars['Boolean']['output'];
-  /** The name of the product, must be between 1 and 50 characters  */
+  /** The name of the product, must be between 1 and 50 characters */
   name: Scalars['String']['output'];
   /** The price of the product, must be between 1 and 1000 */
   price: Scalars['Int']['output'];
@@ -126,10 +134,13 @@ export type ProductEdge = {
 
 export type Query = {
   __typename?: 'Query';
+  /** Get the current user. */
   me: User;
   product?: Maybe<Product>;
   searchProducts?: Maybe<ProductConnection>;
+  /** Get a shop by its ID. */
   shop?: Maybe<Shop>;
+  /** Get a user by id. */
   user?: Maybe<User>;
 };
 
@@ -164,17 +175,23 @@ export type Role =
   | 'ADMIN'
   | 'USER';
 
+/** Each user can have a shop, and a shop can have many products. */
 export type Shop = {
   __typename?: 'Shop';
+  /** The address of the shop. Can only be viewed by admins or the owner of the shop. */
   address: Scalars['String']['output'];
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
+  /** The name of the shop. */
   name: Scalars['String']['output'];
+  /** The owner of the shop. */
   owner: User;
+  /** Search for products in the shop. */
   products?: Maybe<ProductConnection>;
 };
 
 
+/** Each user can have a shop, and a shop can have many products. */
 export type ShopproductsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -185,15 +202,23 @@ export type ShopproductsArgs = {
   name?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** The users of the application. Each user can have a shop. */
 export type User = {
   __typename?: 'User';
+  /** The date of creation of the user. */
   createdAt: Scalars['DateTime']['output'];
+  /** The date of birth of the user. Can only be viewed by admins or the user itself. */
   dateOfBirth: Scalars['DateTime']['output'];
+  /** The id of the user. */
   id: Scalars['ID']['output'];
+  /** Whether the user is an admin. An admin can view more sensitive information such as the shop address and the user's date of birth. */
   isAdmin: Scalars['Boolean']['output'];
+  /** The role of the user. Can only be viewed by admins. */
   role: Scalars['String']['output'];
   shop?: Maybe<Shop>;
+  /** The date of last update of the user. */
   updatedAt: Scalars['DateTime']['output'];
+  /** The username of the user. Must be unique. */
   username: Scalars['String']['output'];
 };
 

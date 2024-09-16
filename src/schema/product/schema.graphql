@@ -14,6 +14,9 @@ extend type Query {
 }
 
 extend type Mutation {
+  """
+  Create a new product. Price and stock must be positive numbers.
+  """
   createProduct(
     name: String!
     description: String!
@@ -21,8 +24,19 @@ extend type Mutation {
     stock: Int!
   ): Product!
 
+  """
+  Add stock to a product. The total stock (existing + added) cannot exceed 100.
+  """
   addStock(productId: ID!, stock: Int!): Product!
+
+  """
+  Delete a product.
+  """
   deleteProduct(productId: ID!): Product!
+
+  """
+  Set the active status of a product. Active products can only be seen by the owner of the store or admins.
+  """
   setProductActive(productId: ID!, isActive: Boolean!): Product!
 }
 

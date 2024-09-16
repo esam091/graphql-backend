@@ -18,5 +18,5 @@ export const User: UserResolvers = {
     }
 
     return new Date(dateOfBirth)
-  },
+  }
 }

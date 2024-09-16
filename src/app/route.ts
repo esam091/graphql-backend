@@ -6,15 +6,30 @@ import { resolvers } from '@/schema/resolvers.generated'
 import { Context } from '@/context'
 import { startServerAndCreateNextHandler } from '@as-integrations/next'
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
+import { ApolloArmor } from '@escape.tech/graphql-armor'
+
+const armor = new ApolloArmor({
+  maxDepth: {
+    enabled: true,
+    n: 5,
+  },
+})
+
+const { plugins, validationRules } = armor.protect()
 
 const server = new ApolloServer<Context>({
   typeDefs,
   resolvers,
-  plugins: [ApolloServerPluginLandingPageLocalDefault({
-    footer: false,
-  })],
-  introspection: true
-  // includeStacktraceInErrorResponses: false,
+
+  // Enable playground in production so visitors can play around with the API
+  plugins: [
+    ApolloServerPluginLandingPageLocalDefault({
+      footer: false,
+    }),
+    ...plugins,
+  ],
+  introspection: true,
+  validationRules: [...validationRules],
 })
 
 const handler = startServerAndCreateNextHandler(server, {

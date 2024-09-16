@@ -9,6 +9,18 @@ export const createShop: NonNullable<MutationResolvers['createShop']> = async (
   fields,
   { currentUser }
 ) => {
+  if (fields.name.length < 1 || fields.name.length > 50) {
+    throw new GraphQLError('Shop name must be between 1 and 50 characters', {
+      extensions: { code: 'BAD_USER_INPUT' },
+    })
+  }
+
+  if (fields.address.length < 1 || fields.address.length > 50) {
+    throw new GraphQLError('Shop address must be between 1 and 50 characters', {
+      extensions: { code: 'BAD_USER_INPUT' },
+    })
+  }
+
   if (!currentUser) {
     throw new GraphQLError('Not authenticated', {
       extensions: { code: 'NOT_AUTHENTICATED' },

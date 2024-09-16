@@ -10,6 +10,18 @@ export const signIn: NonNullable<MutationResolvers['signIn']> = async (
   _parent,
   fields,
 ) => {
+  if (fields.username.length < 1 || fields.username.length > 50) {
+    throw new GraphQLError('Username must be between 1 and 50 characters', {
+      extensions: { code: 'BAD_USER_INPUT' },
+    })
+  }
+
+  if (fields.password.length < 1 || fields.password.length > 50) {
+    throw new GraphQLError('Password must be between 1 and 50 characters', {
+      extensions: { code: 'BAD_USER_INPUT' },
+    })
+  }
+
   const [dbUser] = await db
     .select()
     .from(users)

@@ -1,19 +1,48 @@
 extend type Query {
+  """
+  Get a shop by its ID.
+  """
   shop(id: ID!): Shop
 }
 
 extend type Mutation {
+  """
+  Create a new shop.
+  """
   createShop(name: String!, address: String!): Shop!
+
+  """
+  Update the address of the shop. Can only be done by the owner of the shop.
+  """
   updateAddress(address: String!): Shop!
 }
 
+"""
+Each user can have a shop, and a shop can have many products.
+"""
 type Shop {
   id: ID!
+
+  """
+  The name of the shop.
+  """
   name: String!
-  address: String! # can be only viewed by admins or self
+
+  """
+  The address of the shop. Can only be viewed by admins or the owner of the shop.
+  """
+  address: String!
+
   createdAt: DateTime!
+
+  """
+  The owner of the shop.
+  """
   owner: User!
 
+  """
+  Search for products in the shop.
+  """
   products(
     name: String
     minPrice: Int

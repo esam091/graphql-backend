@@ -1,8 +1,6 @@
-import { db } from '@/db'
 import type { ShopResolvers } from '../../types.generated'
-import { users } from '@/schema'
-import { eq } from 'drizzle-orm'
 import { searchProducts } from '@/util'
+import { userLoader } from '@/schema/loader/userLoader'
 
 export const Shop: ShopResolvers = {
   products: async (_parent, args, context) => {
@@ -16,12 +14,7 @@ export const Shop: ShopResolvers = {
   },
 
   owner: async (parent) => {
-    const [user] = await db
-      .select()
-      .from(users)
-      .where(eq(users.id, parent.userId))
-
-    return user!
+    return userLoader.load(parent.userId)
   },
 
   address: async (parent, _arg, { currentUser }) => {
@@ -33,5 +26,5 @@ export const Shop: ShopResolvers = {
     }
 
     return parent.address
-  },
+  }
 }

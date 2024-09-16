@@ -1,13 +1,34 @@
 scalar DateTime
 
 type Mutation {
+  """
+  Add stock to a product. The total stock (existing + added) cannot exceed 100.
+  """
   addStock(productId: ID!, stock: Int!): Product!
+
+  """Create a new product. Price and stock must be positive numbers."""
   createProduct(description: String!, name: String!, price: Int!, stock: Int!): Product!
+
+  """Create a new shop."""
   createShop(address: String!, name: String!): Shop!
+
+  """Delete a product."""
   deleteProduct(productId: ID!): Product!
+
+  """
+  Set the active status of a product. Active products can only be seen by the owner of the store or admins.
+  """
   setProductActive(isActive: Boolean!, productId: ID!): Product!
+
+  """Sign in a user. Returns a JWT token if successful."""
   signIn(password: String!, username: String!): String!
+
+  """Sign up a user. Returns a JWT token if successful."""
   signUp(dateOfBirth: DateTime!, password: String!, role: Role!, username: String!): String!
+
+  """
+  Update the address of the shop. Can only be done by the owner of the shop.
+  """
   updateAddress(address: String!): Shop!
 }
 
@@ -23,7 +44,7 @@ type Product {
   """The date and time when the product was created"""
   createdAt: DateTime!
 
-  """The description of the product, must be between 1 and 1000 characters """
+  """The description of the product, must be between 1 and 1000 characters"""
   description: String!
 
   """The unique identifier of the product"""
@@ -32,7 +53,7 @@ type Product {
   """Active products can only be seen by the owner of the store"""
   isActive: Boolean!
 
-  """The name of the product, must be between 1 and 50 characters """
+  """The name of the product, must be between 1 and 50 characters"""
   name: String!
 
   """The price of the product, must be between 1 and 1000"""
@@ -56,10 +77,15 @@ type ProductEdge {
 }
 
 type Query {
+  """Get the current user."""
   me: User!
   product(id: ID!): Product
   searchProducts(after: String, before: String, first: Int, inStockOnly: Boolean, last: Int, maxPrice: Int, minPrice: Int, name: String): ProductConnection
+
+  """Get a shop by its ID."""
   shop(id: ID!): Shop
+
+  """Get a user by id."""
   user(id: ID!): User
 }
 
@@ -68,22 +94,50 @@ enum Role {
   USER
 }
 
+"""Each user can have a shop, and a shop can have many products."""
 type Shop {
+  """
+  The address of the shop. Can only be viewed by admins or the owner of the shop.
+  """
   address: String!
   createdAt: DateTime!
   id: ID!
+
+  """The name of the shop."""
   name: String!
+
+  """The owner of the shop."""
   owner: User!
+
+  """Search for products in the shop."""
   products(after: String, before: String, first: Int, last: Int, maxPrice: Int, minPrice: Int, name: String): ProductConnection
 }
 
+"""The users of the application. Each user can have a shop."""
 type User {
+  """The date of creation of the user."""
   createdAt: DateTime!
+
+  """
+  The date of birth of the user. Can only be viewed by admins or the user itself.
+  """
   dateOfBirth: DateTime!
+
+  """The id of the user."""
   id: ID!
+
+  """
+  Whether the user is an admin. An admin can view more sensitive information such as the shop address and the user's date of birth.
+  """
   isAdmin: Boolean!
+
+  """The role of the user. Can only be viewed by admins."""
   role: String!
   shop: Shop
+
+  """The date of last update of the user."""
   updatedAt: DateTime!
+
+  """The username of the user. Must be unique."""
   username: String!
 }

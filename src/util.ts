@@ -40,6 +40,9 @@ export async function searchProducts({ args, context }: SearchProductParams) {
     shopId,
   } = args
   let first = firstItems
+  if (!first && !last) {
+    first = 5
+  }
 
   if (first && (last || before)) {
     throw new GraphQLError('Can only pair first with after')
@@ -51,10 +54,6 @@ export async function searchProducts({ args, context }: SearchProductParams) {
 
   if (before && after) {
     throw new GraphQLError('Cannot use both before and after')
-  }
-
-  if (!last) {
-    first = 5
   }
 
   let query = db

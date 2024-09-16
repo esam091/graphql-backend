@@ -5,6 +5,7 @@ const config: CodegenConfig = {
   schema: '**/schema.graphql',
   generates: {
     'src/schema': defineConfig({
+
       typesPluginsConfig: {
         contextType: '@/context#Context',
       },

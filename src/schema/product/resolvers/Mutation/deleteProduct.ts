@@ -4,9 +4,7 @@ import { products, shops } from '@/schema'
 import { eq, and } from 'drizzle-orm'
 import { GraphQLError } from 'graphql'
 
-export const deleteProduct: NonNullable<
-  MutationResolvers['deleteProduct']
-> = async (_parent, { productId }, { currentUser }) => {
+export const deleteProduct: NonNullable<MutationResolvers['deleteProduct']> = async (_parent, { productId }, { currentUser }) => {
   if (!currentUser) {
     throw new GraphQLError('Authentication required', {
       extensions: { code: 'UNAUTHENTICATED' },

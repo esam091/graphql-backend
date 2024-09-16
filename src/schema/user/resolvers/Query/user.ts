@@ -1,16 +1,15 @@
 import type { QueryResolvers } from '../../../types.generated'
-import { db } from '../../../../db'
-import { users as users } from '../../../../schema'
-import { eq } from 'drizzle-orm'
+import { userLoader } from '@/schema/loader/userLoader'
+import { GraphQLError } from 'graphql'
 
 export const user: NonNullable<QueryResolvers['user']> = async (
   _parent,
   { id },
 ) => {
-  const [dbUser] = await db
-    .select()
-    .from(users)
-    .where(eq(users.id, Number(id)))
+  const idNumber = Number(id)
 
-  return dbUser
+  if (isNaN(idNumber)) {
+    throw new GraphQLError('Invalid user id')
+  }
+  return userLoader.load(idNumber)
 }
