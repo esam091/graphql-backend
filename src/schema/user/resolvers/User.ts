@@ -7,7 +7,7 @@ export const User: UserResolvers = {
   isAdmin: async ({ role }) => {
     return role === 'admin'
   },
-  shop: async (user) => {
+  shop: async (user) => { 
     return await db.select().from(shops).where(eq(shops.userId, user.id)).get()
   },
   dateOfBirth: async ({ dateOfBirth, id }, _, { currentUser }) => {
