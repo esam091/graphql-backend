@@ -21,6 +21,12 @@ A nearly production ready implementation of a GraphQL server incorporating indus
 - The GraphQL server is embedded within a Next.js route for easy hosting with Vercel
 - Introspection and playground is enabled so that visitors can play around with the playground.
 
+## Running the app locally
+- Checkout the project
+- Run `npm install`
+- Copy `.env.example` to `.env`
+- Run `npm run dev` and you're good to go
+
 ## Technologies
 ![GraphQL](https://img.shields.io/badge/GraphQL-E10098?logo=graphql&logoColor=white&style=for-the-badge) 
 ![Apollo GraphQL](https://img.shields.io/badge/Apollo_GraphQL-311C87?logo=apollographql&logoColor=white&style=for-the-badge) 
