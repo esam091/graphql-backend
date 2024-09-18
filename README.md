@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[![Live Demo](https://img.shields.io/badge/Live_Demo-black?logo=googlechrome&style=for-the-badge)](https://graphql-backend.samueledwin.com)
 
-## Getting Started
+A nearly production ready implementation of a GraphQL server incorporating industry best practices.
 
-First, run the development server:
+## Highlights
+✅ Well designed schema with reusable objects.  
+✅ Standard authorization: Users can only modify products for their own shop, etc.  
+✅ Field level authorization: Only admins and shop owners can see the shop's address, Only admins and the user can see the user's date of birth.  
+✅ Malicious query protection: Queries beyond certain depth are rejected.  
+✅ Data loader pattern to prevent n+1 query problem.  
+✅ Relay compliant pagination.  
+✅ Input limit validation.  
+✅ Robust error handling.  
+✅ 100% type safety with TypeScript and graphql-codegen.  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## What this project is NOT about
+- Complete authentication solution. I built just enough so users can sign in.
+- Highly optimized SQL queries.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Additional notes
+- The GraphQL server is embedded within a Next.js route for easy hosting with Vercel
+- Introspection and playground is enabled so that visitors can play around with the playground.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Technologies
+![GraphQL](https://img.shields.io/badge/GraphQL-E10098?logo=graphql&logoColor=white&style=for-the-badge) 
+![Apollo GraphQL](https://img.shields.io/badge/Apollo_GraphQL-311C87?logo=apollographql&logoColor=white&style=for-the-badge) 
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white&style=for-the-badge) 
+![Drizzle ORM](https://img.shields.io/badge/Drizzle_ORM-C5F74E?logo=drizzle&logoColor=black&style=for-the-badge) 
+![SQLite](https://img.shields.io/badge/SQLite-003B57?logo=sqlite&style=for-the-badge) 
+![Next.js](https://img.shields.io/badge/Next.js-black?logo=nextdotjs&style=for-the-badge) 
